@@ -7,11 +7,11 @@ import kotlinx.serialization.serializer
 
 class KotlinJsonSerializier <T>(private val serializier: KSerializer<T>, private val json : Json = Json{ignoreUnknownKeys = true }): JsonSerializer<T> {
     override fun toJson(obj: T): String {
-       return Json.encodeToString(serializier,obj)
+       return json.encodeToString(serializier,obj)
     }
 
     override fun fromJson(json: String): T {
-        return Json.decodeFromString(serializier,json)
+        return this.json.decodeFromString(serializier, json)
     }
     companion object{
         inline fun <reified T> create(json: Json = Json{ ignoreUnknownKeys = true}): KotlinJsonSerializier<T> =

@@ -39,5 +39,6 @@ class MainActivity : AppCompatActivity() {
             AppCacheTTL(this, LocalAppTime()))
         //xmlGson.deleteAll("superhero")
 
+
     }
 }

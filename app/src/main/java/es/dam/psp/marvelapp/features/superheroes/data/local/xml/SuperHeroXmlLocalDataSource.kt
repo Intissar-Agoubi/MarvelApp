@@ -1,6 +1,7 @@
 package es.dam.psp.marvelapp.features.superheroes.data.local.xml
 
 import android.content.Context
+import android.content.SharedPreferences
 import es.dam.psp.marvelapp.R
 import es.dam.psp.marvelapp.core.cache.AppCache
 import es.dam.psp.marvelapp.core.serialization.JsonSerializer
@@ -16,14 +17,14 @@ class SuperHeroXmlLocalDataSource(private val context: Context, private val seri
    private val keySuperHero = "superHero"
     //
 //abrir un fichero para preparalo de ecribir y leer alli :
-    val sharedPref = context.getSharedPreferences(
+    val sharedPref: SharedPreferences = context.getSharedPreferences(
         context.getString(R.string.local_source_superHero),
         Context.MODE_PRIVATE
     )
    private val ttl = 5 * 60 *1000L
     //guardar toda la lista usando un solo clave
     fun save(superheroes: List<SuperHero>){
-        val editor = sharedPref.edit().apply {
+        sharedPref.edit().apply {
             putString(keySuperHero,serialization.toJson(superheroes)).apply()
         }
         appCache.updateTime(keySuperHero)
@@ -32,17 +33,19 @@ class SuperHeroXmlLocalDataSource(private val context: Context, private val seri
     // recuperar todo o leer todo
     fun findAll(): List<SuperHero>{
         if (appCache.isExpired(keySuperHero,ttl)) return emptyList()
-        val json =sharedPref.getString(keySuperHero,null)?: return  emptyList()
+        val json = sharedPref.getString(keySuperHero,null)?: return  emptyList()
         return serialization.fromJson(json)
     }
     // recuperar superHero a traves su id
-    fun findById(id : String) : SuperHero ?{
-     return findAll().find { it.id == id }
+    fun findById(id : String) : SuperHero?{
+     return findAll().find { it.id == id  }
 
     }
-    fun deleteAll(id : String){
+    fun deleteAll(){
         sharedPref.edit().remove(keySuperHero).apply()
     }
+
+
     }
 
 
