@@ -2,5 +2,7 @@
     <string name="app_name">MarvelApp</string>
     <string name="local_source_superHero">localDataSource</string>
     <string name="app_cache">app_cache</string>
+    <string name="error">ERROR</string>
+
 
 </resources>

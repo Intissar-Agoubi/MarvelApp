@@ -45,4 +45,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     implementation(libs.gson)
     implementation(libs.kserialization)
+    implementation(libs.coil)
+    implementation(libs.coil.network.okhttp)
 }

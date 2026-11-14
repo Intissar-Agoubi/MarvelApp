@@ -6,6 +6,7 @@ import es.dam.psp.marvelapp.R
 import es.dam.psp.marvelapp.core.cache.AppCache
 import es.dam.psp.marvelapp.core.serialization.JsonSerializer
 import es.dam.psp.marvelapp.features.superheroes.domain.SuperHero
+import androidx.core.content.edit
 
 /**
  * Conector para gestionar datos en un fichero XML a través de SharedPreferences.
@@ -42,7 +43,7 @@ class SuperHeroXmlLocalDataSource(private val context: Context, private val seri
 
     }
     fun deleteAll(){
-        sharedPref.edit().remove(keySuperHero).apply()
+        sharedPref.edit { remove(keySuperHero) }
     }
 
 
